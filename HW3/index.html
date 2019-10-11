@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Harry Chong Weather</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+function requestWeather(){
+	navigator.geolocation.getCurrentPosition(function(position) {
+		document.getElementById('latitude').innerHTML = position.coords.latitude;
+		document.getElementById('longitude').innerHTML = position.coords.longitude;
+	});
+	
+	// Ensure geolocation is updated in HTML
+	setTimeout(function() {
+        var lat = document.getElementById('latitude').innerHTML;
+		var lon = document.getElementById('longitude').innerHTML;
+		
+		var URL = "./getWeather";
+		
+		$.ajax({
+			type: "POST",
+			url : URL,
+			dataType : "text",
+			data : {"latitude": lat,
+					"longitude": lon},
+			success : function(msg){
+				$("#current").html(msg);
+			},
+			error: function(jgXHR, textStatus,errorThrown){
+				alert("Error: " + textStatus + " " + errorThrown);
+			}
+		});
+	}, 500);
+};
+</script>
+
+</head>
+<body>
+
+<div class="display">
+	Lat.: <span id="latitude"></span><br>
+	Lon.: <span id="longitude"></span><br>
+	<input type="button" value="Click" onclick="requestWeather()">
+</div>
+
+</body>
+</html>
