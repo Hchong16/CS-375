@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Harry Chong's Weather</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Harry Chong's Weather Program</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	
-	<script type="text/javascript" src="weather.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="weather.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
 <div>
-	<button onclick="getInfo();">Click!</button>
-	<p id="current"></p>
-	<p id="latitude"></p> 
-	<p id="longitude"></p>
+  <button onclick="getInfo();">Click!</button>
+  <p id="current"></p>
+  <p id="latitude"></p> 
+  <p id="longitude"></p>
 </div>
 
 <div id="forecasts"> 
-<p> 7 Day Forecast! </p>
+<p> 7 Day Forecast </p>
+<div class="row">
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+</div>
+	
 <table class="table">
   <thead>
 	<th>Day</th>
@@ -37,70 +43,73 @@
 <script>
 // Get Location and Weather
 function getInfo() {
-	navigator.geolocation.getCurrentPosition(success, error);
+  navigator.geolocation.getCurrentPosition(success, error);
 	 
-	function success(pos) {
-		var lat = pos.coords.latitude;
-		var lon = pos.coords.longitude;
-		document.getElementById('latitude').innerHTML = "Lat: " + lat;
-		document.getElementById('longitude').innerHTML = "Lon: " + lon;
+  function success(pos) {
+	var lat = pos.coords.latitude;
+	var lon = pos.coords.longitude;
+	document.getElementById('latitude').innerHTML = "Lat: " + lat;
+	document.getElementById('longitude').innerHTML = "Lon: " + lon;
 		
-        requestWeather(lat, lon);
-    }
+    requestWeather(lat, lon);
+  }
 
-	function requestWeather(lat, lon) {
-		var URL = "./getweather";
-		$.ajax({
-			type: "GET",
-			url: URL,
-			dataType: "text",
-			timeout: 3000,
-			data : {"lat": lat,
-					"lon": lon},
-			success : function(msg){
-				// Parse out relevant information
-				var time_arr = extract_time(msg);
-				var weather_des_arr	= extract_weather_des(msg);
-				var minTemp_arr = extract_minTempF(msg);
-				var maxTemp_arr = extract_maxTempF(msg);
-				var icon_arr = extract_icon_name(msg);
+  function requestWeather(lat, lon) {
+	var URL = "./getweather";
+	  $.ajax({
+        type: "GET",
+        url: URL,
+        dataType: "text",
+        timeout: 3000,
+        data : {"lat": lat,
+                "lon": lon},
+        success : function(msg){
+          var data = JSON.parse(msg)
+          // console.log(msg);
+		  // console.log(data);
+
+		  var time_arr = data[0]
+		  var weather_des_arr = data[1]
+		  var minTemp_arr = data[2]
+		  var maxTemp_arr = data[3]
+		  var icon_arr = data[4]
+		  
+		  let table = document.getElementsByClassName("table");
 				
-				let table = document.getElementsByClassName("table");
+		  var tbody = $('#body');
+		  var count = 0;
+		  var totalCells = 1;
 				
-				var tbody = $('#body');
-				var count = 0;
-				var totalCells = 1;
-				
-				console.log(time_arr.length)
-				
-				for (var i = 0; i < 7; i++) {
-					var tr = $('<tr/>').appendTo(tbody);
-					tr.append('<td>' + time_arr[count] + '</td>');
-					tr.append('<td>' + weather_des_arr[count] + '</td>');
-					tr.append('<td>' + maxTemp_arr[count] + "° / " + minTemp_arr[count] + '°</td>');
-					count++;
-				}
-			
+		  for (var i = 0; i < 7; i++) {
+            var tr = $('<tr/>').appendTo(tbody);
+            tr.append('<td>' + time_arr[count] + '</td>');
+			tr.append('<td> </td'); // Image here
+            tr.append('<td>' + weather_des_arr[count] + '</td>');
+            tr.append('<td>' + maxTemp_arr[count] + "° / " + minTemp_arr[count] + '°</td>');
+            count++;
+          } 
+		
+
+			// DEBUG
+			/*$("#current").html(msg);
+			console.log(time_arr);
+			console.log(weather_des_arr);
+			console.log(minTemp_arr);
+			console.log(maxTemp_arr);
+			console.log(icon_arr);*/
+		},
+		error: function(jgXHR, textStatus, errorThrown) {
+			alert("Error: " + textStatus + " " + errorThrown);
+			error() 
+		}
+	});
+  }
 	
-				// DEBUG
-				// $("#current").html(msg);
-				console.log(time_arr);
-				console.log(weather_des_arr);
-				console.log(minTemp_arr);
-				console.log(maxTemp_arr);
-				console.log(icon_arr);
-			},
-			error: function(jgXHR, textStatus, errorThrown) {
-				alert("Error: " + textStatus + " " + errorThrown);
-				error() 
-			}
-		});
-	}
-	
-	function error() {
-		document.getElementById('current').innerHTML = "There was an error! Please try again later.";
-    }
+  function error() {
+    document.getElementById('current').innerHTML = "There was an error! Please try again later.";
+  }
 }
 </script>
 </body>
+
 </html>
