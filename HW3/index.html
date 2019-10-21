@@ -12,32 +12,28 @@
 </head>
 
 <body>
-<div>
-  <button onclick="getInfo();">Click!</button>
-  <p id="current"></p>
-  <p id="latitude"></p> 
-  <p id="longitude"></p>
+<div class="bar">
+  <nav class="navbar navbar-dark bg-dark">
+    <h2 style="color: white"> 7 Day Forecast </h2>
+  </nav>
 </div>
 
-<div id="forecasts"> 
-<p> 7 Day Forecast </p>
-<div class="row">
-  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
-  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
-  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
-  <div class="col-6 col-md-4">.col-6 .col-md-4</div>
-</div>
-	
-<table class="table">
-  <thead>
-	<th>Day</th>
-	<th></th>
-	<th>Description</th>
-	<th>High/Low</th>
-  </thead>
-  <tbody id="body">
-  </tbody>
-</table>
+<div class="container-fluid">
+  <div class="row"> 
+    <table class="table table-striped">
+	  <thead class="thead-dark">
+        <th>Day</th>
+        <th>High/Low</th>
+        <th>Feels</th>
+        <th>Precip</th>
+        <th>Humidity</th>
+        <th>Description</th>
+        <th></th>	
+      </thead>
+      <tbody style="font-weight: bold" id="body">
+      </tbody>
+     </table> 
+</div> 
 </div>
 
 <script>
@@ -48,6 +44,7 @@ function getInfo() {
   function success(pos) {
 	var lat = pos.coords.latitude;
 	var lon = pos.coords.longitude;
+	document.getElementById('header').innerHTML = "Your Information:";
 	document.getElementById('latitude').innerHTML = "Lat: " + lat;
 	document.getElementById('longitude').innerHTML = "Lon: " + lon;
 		
@@ -73,30 +70,35 @@ function getInfo() {
 		  var minTemp_arr = data[2]
 		  var maxTemp_arr = data[3]
 		  var icon_arr = data[4]
-		  
-		  let table = document.getElementsByClassName("table");
-				
+		  var feelsLikeF_arr = data[5]
+		  var pop = data[6]
+		  var humidity = data[7]
+			
 		  var tbody = $('#body');
 		  var count = 0;
 		  var totalCells = 1;
-				
+		  
+		  // Fill Table
 		  for (var i = 0; i < 7; i++) {
             var tr = $('<tr/>').appendTo(tbody);
-            tr.append('<td>' + time_arr[count] + '</td>');
-			tr.append('<td> </td'); // Image here
-            tr.append('<td>' + weather_des_arr[count] + '</td>');
-            tr.append('<td>' + maxTemp_arr[count] + "° / " + minTemp_arr[count] + '°</td>');
+            tr.append('<td class="table-light">' + time_arr[count] + '</td' + '</td>');
+            tr.append('<td class="table-light">' + maxTemp_arr[count] + "° / " + minTemp_arr[count] + '°</td>');
+			tr.append('<td class="table-light">' + feelsLikeF_arr[count] + '°</td>');
+			tr.append('<td class="table-light">' + pop[count] + '%</td>');
+			tr.append('<td class="table-light">' + humidity[count] + '%</td>');
+			tr.append('<td class="table-light">' + weather_des_arr[count] + '</td>');
+			tr.append('<td class="table-light"><img src="/css/icons/' +  icon_arr[count] + '"alt="" hspace="50" height=50 width=50></img></td>');
             count++;
+			
           } 
-		
-
-			// DEBUG
-			/*$("#current").html(msg);
-			console.log(time_arr);
-			console.log(weather_des_arr);
-			console.log(minTemp_arr);
-			console.log(maxTemp_arr);
-			console.log(icon_arr);*/
+			
+           // DEBUG
+           /*$("#current").html(msg);
+           console.log(time_arr);
+           console.log(weather_des_arr);
+           console.log(minTemp_arr);
+           console.log(maxTemp_arr);
+           console.log(icon_arr);*/
 		},
 		error: function(jgXHR, textStatus, errorThrown) {
 			alert("Error: " + textStatus + " " + errorThrown);
@@ -110,6 +112,15 @@ function getInfo() {
   }
 }
 </script>
+
+<div>
+  <button type="button" class="btn btn-primary btn-lg btn-block" onclick="resetTable(); getInfo();">Get Weather Forecast!</button>
+  <p id="current"></p>
+  <h3 id="header"></h3> 
+  <p id="latitude"></p> 
+  <p id="longitude"></p>
+</div>
+
 </body>
 
 </html>

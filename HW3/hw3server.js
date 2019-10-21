@@ -23,6 +23,9 @@ app.get('/getweather', function (req, res) {
 	var minTempF = [];
 	var maxTempF = [];
 	var icon = [];
+	var feelsLikeF = [];
+	var pop = [];
+	var humidity = [];
 	
 	// Parse Data into arrays:
 	// Extract Date/Time
@@ -50,13 +53,28 @@ app.get('/getweather', function (req, res) {
 		icon = icon.concat(json.response[0].periods[i].icon);
 	}
 	
+	// Extract Feels Like
+	for (var i = 0; i < 7; i++) {
+		feelsLikeF = feelsLikeF.concat(json.response[0].periods[i].feelslikeF);
+	}
+	
+	// Extract Probability of precipitation.
+	for (var i = 0; i < 7; i++) {
+		pop = pop.concat(json.response[0].periods[i].pop);
+	}
+	
+	// Extract Humidity  percentage
+	for (var i = 0; i < 7; i++) {
+		humidity = humidity.concat(json.response[0].periods[i].humidity);
+	}
+	
 	// Combine into list of arrays
-	var data = [validTime, weather, minTempF, maxTempF, icon]
+	var data = [validTime, weather, minTempF, maxTempF, icon, feelsLikeF, pop, humidity]
 	res.write(JSON.stringify(data)); 
     res.end();
   }); 
 });
 
-app.listen(3015, function(){
+app.listen(8080, function(){
   console.log('Server Running');
 });
