@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Harry Chong's Weather Program</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Import Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+  <!-- Import Javascripts -->
+  <script type="text/javascript" src="access_database.js"></script>
+  <script type="text/javascript" src="get_transcript.js"></script>
+  <script type="text/javascript" src="modify_dropdown.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body onload="updateDropdown()">
+<!-- Display Database Header -->
+<div class="bar-fluid">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse">
+    <ul class="navbar-nav">
+      <li>
+      <h2 style="color: white">Display Databases</h2>
+      </li>
+    </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- Display Database -->
+<div class="container-fluid">
+  <!-- Table to be populated with Server Response -->
+  <div class="row"> 
+    <table class="table table-striped" id="database_table">
+      <thead class="thead-dark" id="database_header">
+      </thead>
+
+      <tbody style="font-weight: bold" id="database_body">
+      </tbody>
+    </table> 
+  </div> 
+
+  <!-- Display Database -->
+  <select id="database_selection">
+    <option disabled selected> Select a Database: </option>
+    <option value="1">Student</option>
+    <option value="2">Course</option>
+    <option value="3">Grades</option>
+  </select>
+
+  <!-- Selection Message -->
+  <p id="database_result"></p>
+
+  <!-- Error Message -->
+  <p style="color: red" id="status"></p>
+
+  <button type="button" class="btn btn-primary" onclick="resetDatabaseTable(); getInfo()">Go</button>
+  <p> <br> </p>
+</div>
+
+<!-- Display Transcript Header -->
+<div class="bar-fluid">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse">
+    <ul class="navbar-nav">
+      <li>
+      <h2 style="color: white">Student Transcript</h2>
+      </li>
+    </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- Student Transcript Search -->
+<div class="container-fluid">
+  <!-- Table to be populated with Server Response -->
+  <div class="row"> 
+    <table class="table table-striped" id="transcript_table">
+      <thead class="thead-dark" id="student_table_header">
+      </thead>
+
+      <tbody style="font-weight: bold" id="student_table_body">
+      </tbody>
+    </table> 
+  </div> 
+
+  <!-- Transcript Search -->
+  <h6> Select a Student </h6>
+  <select id="student_dropdown">
+    <option disabled selected> Select a Student: </option>
+  </select>
+
+  <h6> Select a Term/Year </h6>
+  <select id="term_dropdown" required>
+    <option disabled selected> Select a Term/Year: </option>
+  </select>
+
+  <!-- Selection Message -->
+  <p id="transcript_result"></p>
+
+  <!-- Error Message -->
+  <p style="color: red" id="transcript_status"></p>
+
+  <button type="button" class="btn btn-primary" onclick="resetTranscriptTable(); getTranscript()">Go</button>
+  <p> <br> </p>
+</div>
+
+<!-- Add New Student Header -->
+<div class="bar-fluid">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse">
+    <ul class="navbar-nav">
+      <li>
+      <h2 style="color: white">Add New Student (TODO)</h2>
+      </li>
+    </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- Add Student -->
+<div class="container-fluid">
+    <!-- Transcript Search -->
+    <form action="">
+      Student ID:<br>
+      <input type="text" name="studentID" value="">
+      <br>
+      First Name:<br>
+      <input type="text" name="lastName" value="">
+      <br>
+      Last Name:<br>
+      <input type="text" name="firstName" value="">
+      <br>
+      Date of birth (ex. mm/dd/yyyy):<br>
+      <input type="text" name="birth" value="">
+      <br>
+      Major of study (ex. CS):<br>
+      <input type="text" name="major" value="">
+      <br><br>
+
+      <input type="submit" class="btn btn-primary" value="Submit">
+      <p> <br> </p>
+    </form> 
+
+    <p id="student_status"></p>
+  </div>
+</body>
+</html>
