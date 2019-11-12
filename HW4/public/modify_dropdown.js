@@ -1,5 +1,6 @@
-// Function to call appropriate functions to DropDown selections
+// Function to clean and create DropDown selections for Student Names and Terms.
 function updateDropdown() {
+    cleanup();
     updateStudents();
     updateTerms();
 }
@@ -51,4 +52,18 @@ function updateTerms() {
             }
         },
     });
+}
+
+// Function to clean dropdown menu if it already exists
+function cleanup() {
+    var student_dropdown = document.getElementById("student_dropdown");
+    var term_dropdown = document.getElementById("term_dropdown");
+
+    for(var i = student_dropdown.options.length - 1 ; i >= 0 ; i--) {
+        student_dropdown.remove(i);
+    }
+
+    for(var i = term_dropdown.options.length - 1 ; i >= 0 ; i--) {
+        term_dropdown.remove(i);
+    }
 }

@@ -21,10 +21,9 @@ function getTranscript() {
     } else if (student_choice != "Select a Student:" & term_choice == "Select a Term/Year:") {
         document.getElementById("transcript_result").innerHTML = "Please select a Term/Year!";
     } else {
+        requestTranscript(firstName, lastName, term_choice);
         document.getElementById("transcript_result").innerHTML = "You have selected " + firstName + ' ' + lastName + " for the following Term/Year: " + term_choice;
     }
-
-    requestTranscript(firstName, lastName, term_choice);
 }
 
 // Function to request MySQL Student data from endpoint
@@ -92,7 +91,7 @@ function requestTranscript(firstName, lastName, term_choice) {
     });
 }
 
-// If Browser cannot obtain geographic coordinates, return error message.
+// Return error message if error occurs.
 function error() {
     document.getElementById('status').innerHTML = "There was an error! Please try again later.";
 }

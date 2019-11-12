@@ -125,49 +125,7 @@ app.get('/getTranscript', function (req, res) {
 	con.query('SELECT student.studentID, firstName, lastName, term, grades.courseID, description, grade \
 			   FROM grades INNER JOIN student ON student.studentID = grades.studentID \
 			   INNER JOIN course ON course.courseID = grades.courseID \
-			   WHERE firstName = \'' + firstName + '\' AND lastName = \'' + lastName + '\' AND term = \'' + term_choice + '\'',
-	function(err,rows,fields) {
-		if (err) {
-			console.log('Error during query processing');
-		} else {
-			console.log(rows)
-			var studentID = [];
-			var firstName = [];
-			var lastName = [];
-			var term = [];
-			var courseID = [];
-			var description = [];
-			var grade = [];
-			var header = ["Student ID", "First Name", "Last Name", "Term/Year", "Course ID", "Description", "Grade"]
-
-			// Extract Information
-			for (var i = 0; i < rows.length; i++) {
-				studentID = studentID.concat(rows[i].studentID);
-				firstName = firstName.concat(rows[i].firstName);
-				lastName = lastName.concat(rows[i].lastName);
-				term = term.concat(rows[i].term);
-				courseID = courseID.concat(rows[i].courseID);
-				description = description.concat(rows[i].description);
-				grade = grade.concat(rows[i].grade);
-			}
-
-			var data = [header, studentID, firstName, lastName, term, courseID, description, grade]
-			res.write(JSON.stringify(data)); 
-			res.end();
-		}
-	});
-});
-
-// Endpoint to add new student to Student Table
-app.get('/addStudent', function (req, res) {
-	var firstName = req.query.firstName;
-	var lastName = req.query.lastName;
-	var term_choice = req.query.term_choice;
-
-	con.query('SELECT student.studentID, firstName, lastName, term, grades.courseID, description, grade \
-			   FROM grades INNER JOIN student ON student.studentID = grades.studentID \
-			   INNER JOIN course ON course.courseID = grades.courseID \
-			   WHERE firstName = \'' + firstName + '\' AND lastName = \'' + lastName + '\' AND term = \'' + term_choice + '\'',
+			   WHERE firstName = ' + con.escape(firstName) + ' AND lastName = ' + con.escape(lastName) + ' AND term = ' + con.escape(term_choice),
 	function(err,rows,fields) {
 		if (err) {
 			console.log(err);
@@ -200,9 +158,27 @@ app.get('/addStudent', function (req, res) {
 	});
 });
 
+// Endpoint to add new student to Student Table
+app.post('/addStudent', function (req, res) {
+	var studentID = req.body.studentID
+	var firstName = req.body.firstName;
+	var lastName = req.body.lastName;
+	var birth = req.body.birth;
+	var major = req.body.major;
 
-
-
+	con.query('INSERT INTO student (studentID, firstName, lastName, birth, major) \
+			   VALUE (' + con.escape(studentID) + ',' + con.escape(firstName) + ',' + con.escape(lastName) + ',' + con.escape(birth) + ',' + con.escape(major) + ")",
+	function(err,rows,fields) {
+		if (err) {
+			console.log('Error during query processing');
+			console.log(err);
+		} else {
+			var data = [firstName, lastName]
+			res.write(JSON.stringify(data)); 
+			res.end();
+		}
+	});
+});
 
 // Endpoint to get all students names
 app.get('/studentDropdown', function (req, res) {
@@ -249,6 +225,6 @@ app.get('/termDropdown', function (req, res) {
 	});
 });
 
-app.listen(3050, function(){
+app.listen(4006, function(){
   console.log('Server Running');
 });

@@ -12,6 +12,7 @@
   <script type="text/javascript" src="access_database.js"></script>
   <script type="text/javascript" src="get_transcript.js"></script>
   <script type="text/javascript" src="modify_dropdown.js"></script>
+  <script type="text/javascript" src="add_student.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
@@ -23,7 +24,7 @@
     <div class="navbar-collapse">
     <ul class="navbar-nav">
       <li>
-      <h2 style="color: white">Display Databases</h2>
+      <h2 style="color: white">Display a Database</h2>
       </li>
     </ul>
     </div>
@@ -67,7 +68,7 @@
     <div class="navbar-collapse">
     <ul class="navbar-nav">
       <li>
-      <h2 style="color: white">Student Transcript</h2>
+      <h2 style="color: white">Get a Student Transcript</h2>
       </li>
     </ul>
     </div>
@@ -99,7 +100,7 @@
   </select>
 
   <!-- Selection Message -->
-  <p id="transcript_result"></p>
+  <p id="transcript_result"></p> 
 
   <!-- Error Message -->
   <p style="color: red" id="transcript_status"></p>
@@ -114,7 +115,7 @@
     <div class="navbar-collapse">
     <ul class="navbar-nav">
       <li>
-      <h2 style="color: white">Add New Student (TODO)</h2>
+      <h2 style="color: white">Add a New Student</h2>
       </li>
     </ul>
     </div>
@@ -123,29 +124,31 @@
 
 <!-- Add Student -->
 <div class="container-fluid">
-    <!-- Transcript Search -->
-    <form action="">
+    <!-- Input Field for Information -->
+    <form name="myform" action="javascript:addStudent(studentID.value, firstName.value, lastName.value, birth.value, major.value)">
       Student ID:<br>
-      <input type="text" name="studentID" value="">
+      <input type="text" name="studentID" id="studentID" value="" maxlength="7" required>
       <br>
       First Name:<br>
-      <input type="text" name="lastName" value="">
+      <input type="text" name="firstName" id="firstName" value="" maxlength="15" required>
       <br>
       Last Name:<br>
-      <input type="text" name="firstName" value="">
+      <input type="text" name="lastName" id="lastName" value="" maxlength="15" required>
       <br>
       Date of birth (ex. mm/dd/yyyy):<br>
-      <input type="text" name="birth" value="">
+      <input type="date" name="birth" id="birth" value="" required>
       <br>
       Major of study (ex. CS):<br>
-      <input type="text" name="major" value="">
+      <input type="text" name="major" id="major" value="" maxlength="5" required>
       <br><br>
 
-      <input type="submit" class="btn btn-primary" value="Submit">
+      <input type="submit" class="btn btn-primary" value="Submit" required>
       <p> <br> </p>
     </form> 
 
-    <p id="student_status"></p>
+    <!-- Status Message -->
+    <p style="color: red" id="student_status"></p>
+
   </div>
 </body>
 </html>

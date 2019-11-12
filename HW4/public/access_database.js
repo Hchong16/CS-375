@@ -171,7 +171,7 @@ function requestGrades() {
     });
 }
 
-// If Browser cannot obtain geographic coordinates, return error message.
+// Return error message if error occurs.
 function error() {
     document.getElementById('status').innerHTML = "There was an error! Please try again later.";
 }
