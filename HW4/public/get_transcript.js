@@ -1,10 +1,10 @@
-// Main function to request data from appropriate Database based on selection
+// Main function to request transcript data from specific endpoint based on selection
 function getTranscript() {
     // Student Selection
     var student = document.getElementById("student_dropdown");
     var student_choice = student.options[student.selectedIndex].text;
 
-    // Break full name into individual variable
+    // Break full name into individual variables
     var temp = student_choice.toString().split(', ');
     var firstName = temp[0];
     var lastName = temp[1];
@@ -26,7 +26,7 @@ function getTranscript() {
     }
 }
 
-// Function to request MySQL Student data from endpoint
+// Function to request endpoint for student data 
 function requestTranscript(firstName, lastName, term_choice) {
     var URL = "./getTranscript";
     $.ajax({
@@ -91,7 +91,7 @@ function requestTranscript(firstName, lastName, term_choice) {
     });
 }
 
-// Return error message if error occurs.
+// Function to return error message if AJAX request fails
 function error() {
     document.getElementById('status').innerHTML = "There was an error! Please try again later.";
 }

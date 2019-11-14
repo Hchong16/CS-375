@@ -1,4 +1,4 @@
-// Function to request to add Student to MySQL database
+// Function to request endpoint to add Student to MySQL database
 function addStudent(studentID, firstName, lastName, birth, major) {
     var URL = "/addStudent";
     $.ajax({
@@ -30,7 +30,7 @@ function addStudent(studentID, firstName, lastName, birth, major) {
     });
 }
 
-// Return error message if error occurs.
+// Function to return error message if AJAX request fails
 function error() {
     document.getElementById('student_status').innerHTML = "There was an error! Please check the inputs and try again.";
 }

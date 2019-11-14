@@ -1,4 +1,4 @@
-// Main function to request data from appropriate Database based on selection
+// Main function to request data from specific endpoint based on selection
 function getInfo() {
     // Database Selection
     var selection = document.getElementById("database_selection");
@@ -21,7 +21,7 @@ function getInfo() {
     }
 }
 
-// Function to request MySQL Student data from endpoint
+// Function to request endpoint for student data 
 function requestStudent() {
     var URL = "./getStudent";
     $.ajax({
@@ -73,7 +73,7 @@ function requestStudent() {
     });
 }
 
-// Function to request MySQL Course data from endpoint
+// Function to request endpoint for course data 
 function requestCourse() {
     var URL = "./getCourse";
     $.ajax({
@@ -119,7 +119,7 @@ function requestCourse() {
     });
 }
 
-// Function to request MySQL Course data from endpoint
+// Function to request endpoint for grades data 
 function requestGrades() {
     var URL = "./getGrades";
     $.ajax({
@@ -171,7 +171,7 @@ function requestGrades() {
     });
 }
 
-// Return error message if error occurs.
+// Function to return error message if AJAX request fails
 function error() {
     document.getElementById('status').innerHTML = "There was an error! Please try again later.";
 }

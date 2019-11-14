@@ -225,6 +225,6 @@ app.get('/termDropdown', function (req, res) {
 	});
 });
 
-app.listen(4006, function(){
+app.listen(8080, function(){
   console.log('Server Running');
 });

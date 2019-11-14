@@ -1,11 +1,11 @@
-// Function to clean and create DropDown selections for Student Names and Terms.
+// Function to clean and create DropDown selections for Student Names and Terms
 function updateDropdown() {
     cleanup();
     updateStudents();
     updateTerms();
 }
 
-// Function to request MySQL for Student Names and Update Dropdown
+// Function to request endpoint for Student Names
 function updateStudents() {
     var URL = "./studentDropdown";
     $.ajax({
@@ -30,7 +30,7 @@ function updateStudents() {
     });
 }
 
-// Function to request MySQL for Student Names and Update Dropdown
+// Function to request endpoint for Terms/Years
 function updateTerms() {
     var URL = "./termDropdown";
     $.ajax({

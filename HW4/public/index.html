@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Harry Chong's Weather Program</title>
+  <title>Harry Chong's Database Application</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -18,112 +18,112 @@
 </head>
 
 <body onload="updateDropdown()">
-<!-- Display Database Header -->
-<div class="bar-fluid">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="navbar-collapse">
-    <ul class="navbar-nav">
-      <li>
-      <h2 style="color: white">Display a Database</h2>
-      </li>
-    </ul>
-    </div>
-  </nav>
-</div>
-
-<!-- Display Database -->
-<div class="container-fluid">
-  <!-- Table to be populated with Server Response -->
-  <div class="row"> 
-    <table class="table table-striped" id="database_table">
-      <thead class="thead-dark" id="database_header">
-      </thead>
-
-      <tbody style="font-weight: bold" id="database_body">
-      </tbody>
-    </table> 
-  </div> 
+  <!-- Display Database Header -->
+  <div class="bar-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="navbar-collapse">
+      <ul class="navbar-nav">
+        <li>
+          <h2 style="color: white">Display a Database</h2>
+        </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
 
   <!-- Display Database -->
-  <select id="database_selection">
-    <option disabled selected> Select a Database: </option>
-    <option value="1">Student</option>
-    <option value="2">Course</option>
-    <option value="3">Grades</option>
-  </select>
+  <div class="container-fluid">
+    <!-- Table to be populated with Server Response -->
+    <div class="row"> 
+      <table class="table table-striped" id="database_table">
+        <thead class="thead-dark" id="database_header">
+        </thead>
 
-  <!-- Selection Message -->
-  <p id="database_result"></p>
+        <tbody style="font-weight: bold" id="database_body">
+        </tbody>
+      </table> 
+    </div> 
 
-  <!-- Error Message -->
-  <p style="color: red" id="status"></p>
+    <!-- Display Database -->
+    <select id="database_selection">
+      <option disabled selected> Select a Database: </option>
+      <option value="1">Student</option>
+      <option value="2">Course</option>
+      <option value="3">Grades</option>
+    </select>
 
-  <button type="button" class="btn btn-primary" onclick="resetDatabaseTable(); getInfo()">Go</button>
-  <p> <br> </p>
-</div>
+    <!-- Selection Message -->
+    <p id="database_result"></p>
 
-<!-- Display Transcript Header -->
-<div class="bar-fluid">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="navbar-collapse">
-    <ul class="navbar-nav">
-      <li>
-      <h2 style="color: white">Get a Student Transcript</h2>
-      </li>
-    </ul>
-    </div>
-  </nav>
-</div>
+    <!-- Error Message -->
+    <p style="color: red" id="status"></p>
 
-<!-- Student Transcript Search -->
-<div class="container-fluid">
-  <!-- Table to be populated with Server Response -->
-  <div class="row"> 
-    <table class="table table-striped" id="transcript_table">
-      <thead class="thead-dark" id="student_table_header">
-      </thead>
+    <button type="button" class="btn btn-primary" onclick="resetDatabaseTable(); getInfo()">Go</button>
+    <p> <br> </p>
+  </div>
 
-      <tbody style="font-weight: bold" id="student_table_body">
-      </tbody>
-    </table> 
-  </div> 
+  <!-- Display Transcript Header -->
+  <div class="bar-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="navbar-collapse">
+      <ul class="navbar-nav">
+        <li>
+        <h2 style="color: white">Get a Student Transcript</h2>
+        </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
 
-  <!-- Transcript Search -->
-  <h6> Select a Student </h6>
-  <select id="student_dropdown">
-    <option disabled selected> Select a Student: </option>
-  </select>
+  <!-- Student Transcript Search -->
+  <div class="container-fluid">
+    <!-- Table to be populated with Server Response -->
+    <div class="row"> 
+      <table class="table table-striped" id="transcript_table">
+        <thead class="thead-dark" id="student_table_header">
+        </thead>
 
-  <h6> Select a Term/Year </h6>
-  <select id="term_dropdown" required>
-    <option disabled selected> Select a Term/Year: </option>
-  </select>
+        <tbody style="font-weight: bold" id="student_table_body">
+        </tbody>
+      </table> 
+    </div> 
 
-  <!-- Selection Message -->
-  <p id="transcript_result"></p> 
+    <!-- Transcript Search -->
+    <h6> Select a Student </h6>
+    <select id="student_dropdown">
+      <option disabled selected> Select a Student: </option>
+    </select>
 
-  <!-- Error Message -->
-  <p style="color: red" id="transcript_status"></p>
+    <h6> Select a Term/Year </h6>
+    <select id="term_dropdown" required>
+      <option disabled selected> Select a Term/Year: </option>
+    </select>
 
-  <button type="button" class="btn btn-primary" onclick="resetTranscriptTable(); getTranscript()">Go</button>
-  <p> <br> </p>
-</div>
+    <!-- Selection Message -->
+    <p id="transcript_result"></p> 
 
-<!-- Add New Student Header -->
-<div class="bar-fluid">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="navbar-collapse">
-    <ul class="navbar-nav">
-      <li>
-      <h2 style="color: white">Add a New Student</h2>
-      </li>
-    </ul>
-    </div>
-  </nav>
-</div>
+    <!-- Error Message -->
+    <p style="color: red" id="transcript_status"></p>
 
-<!-- Add Student -->
-<div class="container-fluid">
+    <button type="button" class="btn btn-primary" onclick="resetTranscriptTable(); getTranscript()">Go</button>
+    <p> <br> </p>
+  </div>
+
+  <!-- Add New Student Header -->
+  <div class="bar-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="navbar-collapse">
+      <ul class="navbar-nav">
+        <li>
+        <h2 style="color: white">Add a New Student</h2>
+        </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Add Student -->
+  <div class="container-fluid">
     <!-- Input Field for Information -->
     <form name="myform" action="javascript:addStudent(studentID.value, firstName.value, lastName.value, birth.value, major.value)">
       Student ID:<br>
@@ -148,7 +148,6 @@
 
     <!-- Status Message -->
     <p style="color: red" id="student_status"></p>
-
   </div>
 </body>
 </html>
